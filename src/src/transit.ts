@@ -84,11 +84,13 @@ function bnToB64(bn: BigInt) {
         arr.push(hex.substring(i * 8, i * 8 + 8))
     }
     var b64encoded = btoa(String.fromCharCode.apply(null, arr.map(x => parseInt(x, 2))));
+    console.log(b64encoded)
 
     return b64encoded.replace(/\//g, "-").replace(/\+/g, "_").replace(/=/g, "")
 }
 
 export function importFull(board: string): CellState[] {
+    console.log(atob(board.replace(/-/g, "\/")))
     const res = (BigInt("0x" + board).toString(2))
     const arr = new Array(81);
     let idx = 0;

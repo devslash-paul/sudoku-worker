@@ -30,16 +30,16 @@ const Sidebar = (props: SidebarProps) => {
       <Button variant="contained" color="primary">
         Save
       </Button>
-      <BoardUI
+      {/* <BoardUI
         board={props.boardCells}
         interact={false}
         size={200}
         onEnterNum={vfun}
         onEnterSmallNum={vfun}
         onDelete={vfun}
-      />
-      <h5>History <LayersClearIcon onClick={props.clearHistory}/></h5>
-      <History />
+      /> */}
+      {/* <h5>History <LayersClearIcon onClick={props.clearHistory}/></h5> */}
+      {/* <History /> */}
       <h5>External resources</h5>
       <a
         href={"https://www.sudokuwiki.org/sudoku.html?db=" + props.board}

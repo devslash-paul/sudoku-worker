@@ -1,5 +1,6 @@
 import React from "react";
 import CSS from "csstype";
+import { Hidden } from "@material-ui/core";
 
 export type SkeletonProps = {
   board: JSX.Element;
@@ -19,7 +20,6 @@ const boardStyle: CSS.Properties = {
 
 const sidebarStyle: CSS.Properties = {
   position: 'relative',
-  background: "rgb(170, 170, 170)",
   padding: "20px",
   width: "22%",
   minWidth: "270px",
@@ -31,8 +31,8 @@ const sidebarStyle: CSS.Properties = {
 const collapse: CSS.Properties = {
   right: '-15px',
   top: '50vh',
+  display: 'none',
   position: 'absolute',
-  background: 'lightgray',
   padding: '10px',
   borderTopRightRadius: '15px',
   borderBottomRightRadius: '15px'

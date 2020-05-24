@@ -99,15 +99,7 @@ const Controls = (props: ControlProps) => {
           Share
         </Button>
       </Grid>
-      <Grid container>
-        <Button disableElevation variant="outlined" style={boxStyle}>
-          Undo
-        </Button>
-        <Button disableElevation variant="outlined" style={boxStyle}>
-          Redo
-        </Button>
-      </Grid>
-      <Grid>
+      {/* <Grid>
         <Button variant="outlined" style={boxStyle} disableElevation>
           <span style={cellStyle}>
             <div>1</div>
@@ -129,7 +121,7 @@ const Controls = (props: ControlProps) => {
             onInput={vfun}
           />
         </Button>
-      </Grid>
+      </Grid> */}
       <div>
         <label htmlFor="highlight">Enable Highlights</label>
         <input
