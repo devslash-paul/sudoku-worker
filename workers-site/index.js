@@ -1,5 +1,4 @@
 import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
-const rust = import('./pkg');
 
 /**
  * The DEBUG flag will do two things that help during development:
@@ -8,11 +7,9 @@ const rust = import('./pkg');
  * 2. we will return an error message on exception in your Response rather
  *    than the default 404.html page.
  */
-const DEBUG = false
+const DEBUG = true
 
-addEventListener('fetch', async event => {
-  // const o = await rust;
-  // console.log(o.greet("yet"))
+addEventListener('fetch', event => {
   try {
     event.respondWith(handleEvent(event))
   } catch (e) {
