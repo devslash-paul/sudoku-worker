@@ -1,5 +1,5 @@
 import React, { Dispatch, useState } from "react";
-import { AppState, CellState, State } from "../state/model";
+import { CellState, State } from "../state/model";
 import CSS from "csstype";
 import {
   insertCell,
@@ -10,6 +10,7 @@ import {
 } from "../state/cellActions";
 import { connect } from "react-redux";
 import { Cell } from "./Cell";
+import { RootState } from "../state/store";
 
 type BoardProps = {
   board: Array<CellState>;
@@ -177,9 +178,9 @@ export const BoardUI = (props: BoardProps) => {
   );
 };
 
-const mapStateToProps = (main: AppState) => {
+const mapStateToProps = (main: RootState) => {
   return {
-    board: main.cells,
+    board: main.cells.present.cells,
     size: main.settings.boardSize,
     interact: main.settings.state === State.NORMAL
   };

@@ -1,6 +1,5 @@
 import React from "react";
 import CSS from "csstype";
-import { Hidden } from "@material-ui/core";
 
 export type SkeletonProps = {
   board: JSX.Element;

@@ -1,13 +1,14 @@
 import React, { useState, Dispatch } from "react";
 import CSS from "csstype";
 import { connect } from "react-redux";
-import { AppState, Coordinate, Link, CellState } from "../../state/model";
+import { Coordinate, Link, CellState } from "../../state/model";
 import {
   getSmallCoordinatesFromXY,
   toCoordinates,
   snapTo
 } from "../size/sizer";
 import { Line } from "./Line";
+import { RootState } from "../../state/store";
 
 const defaultStyle: CSS.Properties = {
   position: "absolute",
@@ -175,10 +176,10 @@ const startLine = (
   }
 };
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: RootState) => {
   return {
     size: state.settings.boardSize,
-    board: state.cells
+    board: state.cells.present.cells
   };
 };
 

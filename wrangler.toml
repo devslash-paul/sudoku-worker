@@ -4,6 +4,7 @@ account_id = "ee1f7090c167a8f6b95233a76b27075e"
 workers_dev = false
 route = "a.sudoku-ui.com/*"
 zone_id = "ab40201c11f10201f9beb557f3915f86"
+webpack_config = "./workers-site/webpack.config.js"
 
 [site]
 bucket = "./public"

@@ -1,10 +1,9 @@
-import { SidebarEvent, HighlightChangeEvent, ImportEvent, PaintEvent, ClearHistoryEvent } from "./cellActions";
-import { SIDEBAR, NEW, HIGHLIGHT_CHANGE, IMPORT, BEGIN_PAINTING, END_PAINTING, PAINT, CLEAR_HISTORY } from "./actionTypes";
+import { HighlightChangeEvent, ImportEvent, PaintEvent, ClearHistoryEvent, HistoryEvent, NewEvent } from "./cellActions";
+import { NEW, HIGHLIGHT_CHANGE, IMPORT, BEGIN_PAINTING, END_PAINTING, PAINT, CLEAR_HISTORY, UNDO, REDO } from "./actionTypes";
 
-export function onNew() :SidebarEvent{
+export function onNew() :NewEvent{
     return {
-        type: SIDEBAR, 
-        subtype: NEW,
+        type: NEW, 
     }
 }
 
@@ -18,8 +17,7 @@ export function onSetHighlight(value: boolean): HighlightChangeEvent {
 export function onImport(value: string): ImportEvent {
     return {
         type: IMPORT,
-        value
-    }
+        value }
 }
 
 export function onChangePainting(value: boolean): PaintEvent {
@@ -31,5 +29,17 @@ export function onChangePainting(value: boolean): PaintEvent {
 export function clearEvents(): ClearHistoryEvent {
     return {
         type: CLEAR_HISTORY,
+    }
+}
+
+export function onUndo(): HistoryEvent {
+    return {
+        type: UNDO
+    }
+}
+
+export function onRedo(): HistoryEvent {
+    return {
+        type: REDO
     }
 }

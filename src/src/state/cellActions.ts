@@ -3,7 +3,6 @@ import {
   INSERT_SMALL,
   DELETE,
   DRAG_CELL,
-  SIDEBAR,
   BLUR_CELL,
   MOVE,
   CLICK_TEXT,
@@ -17,7 +16,9 @@ import {
   BEGIN_PAINTING,
   END_PAINTING,
   SEND_COORDINATE,
-  CLEAR_HISTORY
+  CLEAR_HISTORY,
+  UNDO,
+  REDO
 } from "./actionTypes";
 import { Coordinate } from "./model";
 
@@ -26,12 +27,13 @@ export type Actions =
   | InsertSmallEvent
   | DeleteEvent
   | ResizeEvent
-  | SidebarEvent
   | HighlightChangeEvent
   | ImportEvent
   | CoordinateEvent
   | PaintEvent
-  | ClearHistoryEvent;
+  | NewEvent
+  | ClearHistoryEvent
+  | HistoryEvent;
 
 export type CoordinateEvent = {
   type: typeof SEND_COORDINATE;
@@ -40,20 +42,26 @@ export type CoordinateEvent = {
 
 export type Direction = "UP" | "DOWN" | "LEFT" | "RIGHT";
 
+export type HistoryEvent = {
+  type: typeof UNDO | typeof REDO
+}
+
 export type PaintEvent = {
   type: typeof PAINT;
   subtype: typeof BEGIN_PAINTING | typeof END_PAINTING;
 };
+
 export type ImportEvent = {
   type: typeof IMPORT;
   value: string;
 };
+
 export type ClearHistoryEvent = {
   type: typeof CLEAR_HISTORY;
 }
-export type SidebarEvent = {
-  type: typeof SIDEBAR;
-  subtype: typeof NEW;
+
+export type NewEvent = {
+  type: typeof NEW;
 };
 
 export type HighlightChangeEvent = {

@@ -25,3 +25,6 @@ export const PAINT = "PAINT"
 export const BEGIN_PAINTING = "BEGIN_PAINING"
 export const END_PAINTING = "END_PAINING"
 export const SEND_COORDINATE = "SEND_COORD"
+
+export const UNDO = "UNDO"
+export const REDO = "REDO"

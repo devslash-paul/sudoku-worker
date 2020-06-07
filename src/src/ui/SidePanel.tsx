@@ -1,15 +1,13 @@
 import React, { Dispatch } from "react";
-import LayersClearIcon from '@material-ui/icons/LayersClear';
 import { connect } from "react-redux";
-import { AppState, CellState } from "../state/model";
-import Button from "@material-ui/core/Button";
+import { CellState } from "../state/model";
 import {
   clearEvents
 } from "../state/sidebarActions";
 import { Actions } from "../state/cellActions";
-import { BoardUI } from "./Board";
-import { History } from './History';
+import { RootState } from '../state/store';
 import { ConnectedControls } from "./sidebar/Controls";
+import { WholeCellState } from "../state/cellReducer";
 
 type SidebarProps = {
   board: string;
@@ -20,16 +18,15 @@ type SidebarProps = {
 
 
 const Sidebar = (props: SidebarProps) => {
-  const vfun = (e: any) => {};
 
   return (
     <div>
       <ConnectedControls />
 
-      <h5>Saved Boards</h5>
+      {/* <h5>Saved Boards</h5>
       <Button variant="contained" color="primary">
         Save
-      </Button>
+      </Button> */}
       {/* <BoardUI
         board={props.boardCells}
         interact={false}
@@ -52,14 +49,14 @@ const Sidebar = (props: SidebarProps) => {
   );
 };
 
-const encodeBoard = (cells: CellState[]) => {
-  return cells.map(x => x.mainNum || "0").reduce((p, n) => p + n, "");
+const encodeBoard = (cells: WholeCellState) => {
+  return cells.cells.map(x => x.mainNum || "0").reduce((p, n) => p + n, "");
 };
 
-const mapStateToProps = (main: AppState) => {
+const mapStateToProps = (main: RootState) => {
   return {
-    board: encodeBoard(main.cells),
-    boardCells: main.cells,
+    board: encodeBoard(main.cells.present),
+    boardCells: main.cells.present.cells,
   };
 };
 

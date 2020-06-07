@@ -1,30 +1,30 @@
 import React, { Dispatch } from "react";
 import { encodeFull } from "../../transit";
 import { connect } from "react-redux";
-import { AppState, State, Settings } from "../../state/model";
+import { State, Settings } from "../../state/model";
 import { Actions } from "../../state/cellActions";
 import { Grid, Button } from "@material-ui/core";
-import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import CSS from "csstype";
-import { Cell } from "../Cell";
 import { useToasts } from "react-toast-notifications";
 import {
   onNew,
   onSetHighlight,
   onChangePainting,
-  onImport
+  onImport,
 } from "../../state/sidebarActions";
+import { ActionCreators } from "redux-undo";
+import { RootState } from "../../state/store";
 
-const buttonWidth = 33;
-const cellStyle: CSS.Properties = {
-  boxSizing: "border-box",
-  background: "white",
-  height: buttonWidth + "px",
-  width: buttonWidth + "px",
-  border: "1px solid black",
-  lineHeight: buttonWidth + "px",
-  fontSize: buttonWidth / 1.2 + "px"
-};
+// const buttonWidth = 33;
+// const cellStyle: CSS.Properties = {
+//   boxSizing: "border-box",
+//   background: "white",
+//   height: buttonWidth + "px",
+//   width: buttonWidth + "px",
+//   border: "1px solid black",
+//   lineHeight: buttonWidth + "px",
+//   fontSize: buttonWidth / 1.2 + "px"
+// };
 
 const boxStyle: CSS.Properties = {
   margin: "0px",
@@ -64,12 +64,14 @@ type ControlProps = {
   onChangeHighlight: (e1: boolean) => void;
   onChangePainting: (e1: boolean) => void;
   doImport: (board: string) => void;
+  onUndo: () => void;
+  onRedo: () => void;
 };
 
 const Controls = (props: ControlProps) => {
   const { addToast } = useToasts();
-  const vfun = (e: any) => {};
-  const vof = () => {};
+  // const vfun = (e: any) => { };
+  // const vof = () => { };
 
   return (
     <>
@@ -99,6 +101,19 @@ const Controls = (props: ControlProps) => {
           Share
         </Button>
       </Grid>
+      <Grid container>
+        <Button
+          disableElevation
+          style={{ ...boxStyle }}
+          variant="outlined"
+          onClick={() => props.onUndo()}
+        >Undo</Button>
+        <Button
+          disableElevation
+          style={{ ...boxStyle }}
+          variant="outlined"
+          onClick={() => props.onRedo()}>Redo</Button>
+      </Grid>
       {/* <Grid>
         <Button variant="outlined" style={boxStyle} disableElevation>
           <span style={cellStyle}>
@@ -123,15 +138,6 @@ const Controls = (props: ControlProps) => {
         </Button>
       </Grid> */}
       <div>
-        <label htmlFor="highlight">Enable Highlights</label>
-        <input
-          id="highlight"
-          type="checkbox"
-          checked={props.settings.enableHighlight}
-          onChange={e => props.onChangeHighlight(e.target.checked)}
-        />
-      </div>
-      <div>
         <label htmlFor="painting">Enable Painting</label>
         <input
           id="painting"
@@ -144,17 +150,19 @@ const Controls = (props: ControlProps) => {
   );
 };
 
-const mapStateToProps = (main: AppState) => ({
+const mapStateToProps = (main: RootState) => ({
   painting: main.settings.state === State.PAINTING,
   settings: main.settings,
-  full: () => encodeFull(main.cells)
+  full: () => encodeFull(main.cells.present.cells)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
   onNew: () => dispatch(onNew()),
   onChangeHighlight: (value: boolean) => dispatch(onSetHighlight(value)),
   onChangePainting: (value: boolean) => dispatch(onChangePainting(value)),
-  doImport: (value: string) => dispatch(onImport(value))
+  doImport: (value: string) => dispatch(onImport(value)),
+  onUndo: () => dispatch(ActionCreators.undo()),
+  onRedo: () => dispatch(ActionCreators.redo()),
 });
 
 export const ConnectedControls = connect(

@@ -1,4 +1,5 @@
 import { CellState } from './state/model'
+import { WholeCellState } from './state/cellReducer'
 
 const huff: Record<string, number> = {
     '000': 0,
@@ -89,8 +90,8 @@ function bnToB64(bn: BigInt) {
     return b64encoded.replace(/\//g, "-").replace(/\+/g, "_").replace(/=/g, "")
 }
 
-export function importFull(board: string): CellState[] {
-    console.log(atob(board.replace(/-/g, "\/")))
+export function importFull(board: string): WholeCellState {
+    console.log(atob(board.replace(/-/g, "/")))
     const res = (BigInt("0x" + board).toString(2))
     const arr = new Array(81);
     let idx = 0;
@@ -107,5 +108,5 @@ export function importFull(board: string): CellState[] {
             s = ''
         }
     }
-    return arr;
+    return { cells: arr };
 }

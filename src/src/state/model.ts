@@ -1,3 +1,4 @@
+
 export type CellState = {
     mainNum: number | null,
     small: Array<number>
@@ -52,8 +53,6 @@ export type History = {
 }
 
 export type AppState = {
-    cells: Array<CellState>,
     settings: Settings,
-    paintState: PaintState,
     history: History,
 }
