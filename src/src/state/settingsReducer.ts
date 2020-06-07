@@ -1,6 +1,7 @@
 import { ResizeEvent, PaintEvent } from "./cellActions";
 import { RESIZE_START, RESIZE, RESIZE_END, PAINT } from "./actionTypes";
 import { State } from "./model";
+import { getInitialState } from "./default";
 
 export type SettingsActions = ResizeEvent | PaintEvent;
 
@@ -10,7 +11,7 @@ export type SettingsState = {
     enableHighlight: boolean,
 }
 
-export function settingsReducer(state = { state: State.NORMAL, boardSize: 400, enableHighlight: false }, action: SettingsActions): SettingsState {
+export function settingsReducer(state:SettingsState = {...getInitialState().settings}, action: SettingsActions): SettingsState {
     switch (action.type) {
         case RESIZE:
         case RESIZE_START:

@@ -2,7 +2,7 @@ import React, { Dispatch } from "react";
 import { encodeFull } from "../../transit";
 import { connect } from "react-redux";
 import { State, Settings } from "../../state/model";
-import { Actions } from "../../state/cellActions";
+import { Actions, checkState } from "../../state/cellActions";
 import { Grid, Button } from "@material-ui/core";
 import CSS from "csstype";
 import { useToasts } from "react-toast-notifications";
@@ -65,6 +65,7 @@ type ControlProps = {
   onChangePainting: (e1: boolean) => void;
   doImport: (board: string) => void;
   onUndo: () => void;
+  doCheck: () => void;
   onRedo: () => void;
 };
 
@@ -99,6 +100,14 @@ const Controls = (props: ControlProps) => {
           onClick={() => doExport(addToast, props.full)}
         >
           Share
+        </Button>
+                <Button
+          disableElevation
+          style={{ ...boxStyle, ...topRight }}
+          variant="outlined"
+          onClick={() => props.doCheck()}
+        >
+          Check
         </Button>
       </Grid>
       <Grid container>
@@ -156,11 +165,12 @@ const mapStateToProps = (main: RootState) => ({
   full: () => encodeFull(main.cells.present.cells)
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   onNew: () => dispatch(onNew()),
   onChangeHighlight: (value: boolean) => dispatch(onSetHighlight(value)),
   onChangePainting: (value: boolean) => dispatch(onChangePainting(value)),
   doImport: (value: string) => dispatch(onImport(value)),
+  doCheck: () => dispatch(checkState()),
   onUndo: () => dispatch(ActionCreators.undo()),
   onRedo: () => dispatch(ActionCreators.redo()),
 });

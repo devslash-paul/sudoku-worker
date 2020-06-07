@@ -2,9 +2,7 @@ import { AppState, State } from "./model";
 import {
   Actions,
 } from "./cellActions";
-import { defaultState } from "./default";
 import {
-  HIGHLIGHT_CHANGE,
   RESIZE,
   RESIZE_START,
   RESIZE_END,
@@ -30,21 +28,12 @@ const validStateAction = (state: State, action: Actions) => {
 };
 
 export function AppReducer (
-  state: AppState = {...defaultState},
+  state: AppState = {history: {
+    activeItem: -1, items: []
+  }},
   action: Actions
 ): AppState {
-  if (!validStateAction(state.settings.state, action)) {
-    return state;
-  }
-
-  // if (isPainting(state, action)) {
-  //   return paintReducer(state, action);
-  // }
-
   switch (action.type) {
-
-    case HIGHLIGHT_CHANGE:
-      return doChangeHighlight(state, action.value);
     case CLEAR_HISTORY: 
       return doClearHistory(state);
     case UNDO:
@@ -65,14 +54,3 @@ function doClearHistory(state: AppState) : AppState {
     }
   }
 }
-
-function doChangeHighlight(state: AppState, value: boolean): AppState {
-  return {
-    ...state,
-    settings: {
-      ...state.settings,
-      enableHighlight: value
-    }
-  };
-}
-

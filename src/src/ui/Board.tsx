@@ -172,7 +172,7 @@ export const BoardUI = (props: BoardProps) => {
     );
   });
   return (
-    <div tabIndex={1} className="box" style={rowStyle}>
+    <div tabIndex={1} className="box" style={rowStyle} >
       {cells}
     </div>
   );

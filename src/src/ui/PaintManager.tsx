@@ -1,7 +1,8 @@
 import React from "react";
 import { Paint } from "./paint/Painter";
 import { connect } from "react-redux";
-import { AppState, State } from "../state/model";
+import { State } from "../state/model";
+import { RootState } from "../state/store";
 
 export type Paint = {
   cell: number;
@@ -25,7 +26,7 @@ export const PaintManager = (props: PaintManagerProps) => {
   return <div>{painter}</div>;
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: RootState) => ({
   enabled: state.settings.state === State.PAINTING,
   size: state.settings.boardSize
 });

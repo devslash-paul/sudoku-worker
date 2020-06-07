@@ -18,9 +18,14 @@ import {
   SEND_COORDINATE,
   CLEAR_HISTORY,
   UNDO,
-  REDO
+  REDO,
+  SHOW_TOAST,
 } from "./actionTypes";
+import { Action } from 'redux';
 import { Coordinate } from "./model";
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from "./store";
+import { ShowToastEvent, HideToastEvent, showToast } from "./uiActions";
 
 export type Actions =
   | InsertEvent
@@ -33,7 +38,8 @@ export type Actions =
   | PaintEvent
   | NewEvent
   | ClearHistoryEvent
-  | HistoryEvent;
+  | HistoryEvent 
+  | ShowToastEvent;
 
 export type CoordinateEvent = {
   type: typeof SEND_COORDINATE;
@@ -102,6 +108,7 @@ export type DeleteEvent = {
   type: typeof DELETE;
   index: Set<number>;
 };
+
 export type ResizeEvent =
   | {
       type: typeof RESIZE;
@@ -142,4 +149,16 @@ export function deleteCell(index: Set<number>): DeleteEvent {
     type: DELETE,
     index
   };
+}
+
+export const checkState = (): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch, getState) => {
+  const state = getState();
+  var str = state.cells.present.cells.map(x => x.mainNum || '0').join('')
+  var resp = await fetch("/api/count?sudoku=" + str)
+  var txt = await resp.text()
+  if(txt == "1") {
+    dispatch(showToast("Still on track"))
+  } else {
+    dispatch(showToast("Something is wrong"))
+  }
 }

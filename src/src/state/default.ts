@@ -1,58 +1,54 @@
-import { importFull } from "../transit";
 import { State } from "./model";
+import { RootState } from "./store";
 
-export const getInitialState = () => {
+export function getInitialState(): RootState {
   if (window.location.pathname.startsWith("/share/")) {
-    let path = window.location.pathname.substring("/share/".length)
+    // let path = window.location.pathname.substring("/share/".length)
     window.history.pushState({}, "Sudoku UI", "/")
     return {
       ...defaultState,
-      settings: {
-        ...defaultState.settings,
-        frozen: false,
-      },
-      cells: {
-        present: importFull(path)
-      }
     }
   }
-  const res = localStorage.getItem('state');
+  let res = localStorage.getItem('state');
   if (res != null) {
-    const result =  JSON.parse(res);
+    const result = JSON.parse(res);
     if (result.cells.present == null) {
       return {
-        ...defaultState, 
-        settings: {
-          ...defaultState.settings,
-          frozen: false
-        }
+        ...defaultState,
+      }
+    } else {
+      return {
+        ...result
       }
     }
   }
   return {
     ...defaultState,
-    settings: {
-      ...defaultState.settings,
-      frozen: false // you can never load a frozen state
-    }
   }
 }
 
-export const defaultState = {
-  history: {
-    items: [],
-    activeItem: -1,
+export const defaultState: RootState = {
+  main: {
+    history: {
+      items: [],
+      activeItem: -1,
+    }
   },
-  paintState: {
-    links: [],
-    paintStart: null,
-  },
+  // paintState: {
+  //   links: [],
+  //   paintStart: null,
+  // },
   settings: {
     state: State.NORMAL,
     enableHighlight: false,
     boardSize: 450,
   },
+  ui: {
+    toast: null,
+  },
   cells: {
+    past: [],
+    future: [],
     present: {
       cells: [
         {

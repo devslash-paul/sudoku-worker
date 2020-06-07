@@ -28,3 +28,6 @@ export const SEND_COORDINATE = "SEND_COORD"
 
 export const UNDO = "UNDO"
 export const REDO = "REDO"
+
+export const SHOW_TOAST = "SHOW_TOAST";
+export const HIDE_TOAST = "HIDE_TOAST";

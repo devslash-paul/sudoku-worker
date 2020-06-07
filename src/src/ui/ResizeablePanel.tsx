@@ -1,9 +1,9 @@
 import React, { Dispatch, SyntheticEvent } from "react";
-import { AppState } from "../state/model";
 import { connect } from "react-redux";
 import { Actions, resize } from "../state/cellActions";
 import { ResizableBox, ResizeCallbackData } from "react-resizable";
 import { RESIZE_START, RESIZE_END } from "../state/actionTypes";
+import { RootState } from "../state/store";
 
 type ResizePanelProps = {
   size: number;
@@ -18,7 +18,7 @@ function ResizePanelUI(props: ResizePanelProps): JSX.Element {
     <ResizableBox
       width={props.size}
       height={props.size}
-      minConstraints={[450, 450]}
+      minConstraints={[400, 400]}
       lockAspectRatio={true}
       onResize={props.onDrag}
       onResizeStart={props.onDragStart}
@@ -29,7 +29,7 @@ function ResizePanelUI(props: ResizePanelProps): JSX.Element {
   );
 }
 
-const mapStateToProps = (main: AppState) => {
+const mapStateToProps = (main: RootState) => {
   return {
     size: main.settings.boardSize
   };

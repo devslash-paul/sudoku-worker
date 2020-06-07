@@ -53,6 +53,5 @@ export type History = {
 }
 
 export type AppState = {
-    settings: Settings,
     history: History,
 }
