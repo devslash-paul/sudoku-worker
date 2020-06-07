@@ -46,6 +46,9 @@ export const defaultState: RootState = {
   ui: {
     toast: null,
   },
+  toastr: {
+    toastrs: []
+  },
   cells: {
     past: [],
     future: [],

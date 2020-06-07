@@ -1,3 +1,4 @@
+import {toastr} from 'react-redux-toastr'
 import {
   INSERT,
   INSERT_SMALL,
@@ -19,7 +20,6 @@ import {
   CLEAR_HISTORY,
   UNDO,
   REDO,
-  SHOW_TOAST,
 } from "./actionTypes";
 import { Action } from 'redux';
 import { Coordinate } from "./model";
@@ -156,9 +156,10 @@ export const checkState = (): ThunkAction<void, RootState, unknown, Action<strin
   var str = state.cells.present.cells.map(x => x.mainNum || '0').join('')
   var resp = await fetch("/api/count?sudoku=" + str)
   var txt = await resp.text()
+  var success = resp.status == 200
   if(txt == "1") {
-    dispatch(showToast("Still on track"))
+    toastr.info("nice", "All good big boi")
   } else {
-    dispatch(showToast("Something is wrong"))
+    toastr.error("Problem", "There are " + "" + "solutions" + success)
   }
 }
