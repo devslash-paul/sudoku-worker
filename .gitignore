@@ -1,1 +1,5 @@
 dist
+pkg
+src/build
+src/node_modules/
+workers-site/target
