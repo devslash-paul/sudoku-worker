@@ -16,6 +16,7 @@
     "react-resizable": "^1.10.1",
     "react-scripts": "3.3.0",
     "react-window": "^1.8.5",
+    "redux-thunk": "^2.3.0",
     "redux-undo": "^1.0.1",
     "reselect": "^4.0.0",
     "typescript": "^3.7.4"
@@ -23,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "react-scripts build && cp -r build/* ../public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

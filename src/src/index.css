@@ -14,6 +14,10 @@ html, body {
   box-sizing: border-box;
 }
 
+.MuiButton-disableElevation, .MuiToggleButton-root {
+  height: 3em !important;
+}
+
 ::-webkit-scrollbar {
   width: 0px;
 }

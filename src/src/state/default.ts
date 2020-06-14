@@ -41,7 +41,7 @@ export const defaultState: RootState = {
   settings: {
     state: State.NORMAL,
     enableHighlight: false,
-    boardSize: 450,
+    boardSize: window.innerWidth < 900 ? window.innerWidth - 40: 900,
   },
   ui: {
     toast: null,

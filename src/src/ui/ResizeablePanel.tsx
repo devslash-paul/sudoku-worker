@@ -18,7 +18,7 @@ function ResizePanelUI(props: ResizePanelProps): JSX.Element {
     <ResizableBox
       width={props.size}
       height={props.size}
-      minConstraints={[400, 400]}
+      minConstraints={[200, 200]}
       lockAspectRatio={true}
       onResize={props.onDrag}
       onResizeStart={props.onDragStart}

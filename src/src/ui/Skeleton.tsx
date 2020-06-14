@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import CSS from "csstype";
 
 export type SkeletonProps = {
@@ -8,51 +8,65 @@ export type SkeletonProps = {
 
 const bodyStyle: CSS.Properties = {
   display: "flex",
-  height: "100vh"
+  flexDirection: 'column',
+  justifyContent: 'center',
 };
 
 const boardStyle: CSS.Properties = {
   position: "relative",
-  margin:'auto',
-  padding: "20px"
+  margin: "auto",
+  padding: "1em",
 };
 
-const sidebarStyle: CSS.Properties = {
-  position: 'relative',
-  padding: "20px",
-  width: "22%",
-  minWidth: "270px",
-  minHeight: '100vh',
-  maxHeight: '100vh',
-  overflowY: 'scroll'
+const controlStyle: CSS.Properties = {
+  display: 'flex',
+  justifyContent: 'center',
+  paddingTop: "2em",
 };
 
 const collapse: CSS.Properties = {
-  right: '-15px',
-  top: '50vh',
-  display: 'none',
-  position: 'absolute',
-  padding: '10px',
-  borderTopRightRadius: '15px',
-  borderBottomRightRadius: '15px'
-}
+  right: "-15px",
+  top: "50vh",
+  display: "none",
+  position: "absolute",
+  padding: "10px",
+  borderTopRightRadius: "15px",
+  borderBottomRightRadius: "15px",
+};
 
 const rel: CSS.Properties = {
-  position: 'relative'
-}
+  position: "relative",
+};
 
-export class Skeleton extends React.PureComponent<SkeletonProps> {
-  render() {
-    return (
-      <div style={bodyStyle}>
-        <div style={rel}>
-          <span style={collapse}>X</span>
-          <div style={sidebarStyle}>
-            {this.props.side}
-          </div>
-        </div>
-        <div style={boardStyle}>{this.props.board}</div>
+const getWindowDimensions = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+};
+
+export const useWindowDimensions = () => {
+  const [dim, setDim] = useState(getWindowDimensions());
+  useEffect(() => {
+    const handle = () => {
+      setDim(getWindowDimensions);
+    };
+
+    window.addEventListener("resize", handle);
+    return () => window.removeEventListener("resize", handle);
+  }, []);
+  return dim;
+};
+
+export const Skeleton = (props: SkeletonProps) => {
+  const dim = useWindowDimensions();
+  return (
+    <div style={bodyStyle}>
+      <div style={controlStyle}>
+        {props.side}
       </div>
-    );
-  }
-}
+      <div style={boardStyle}>{props.board}</div>
+    </div>
+  );
+};

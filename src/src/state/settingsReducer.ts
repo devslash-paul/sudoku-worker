@@ -39,9 +39,10 @@ export function settingsReducer(state:SettingsState = {...getInitialState().sett
 
 function doResize(state: SettingsState, data: ResizeEvent): SettingsState {
     if (data.type === RESIZE) {
+        const size = data.size + 40 > window.innerWidth ? window.innerWidth - 40 : data.size;
         return {
             ...state,
-            boardSize: data.size
+            boardSize: size,
         };
     }
     const freeze = data.type === RESIZE_START;
