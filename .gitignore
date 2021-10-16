@@ -3,3 +3,5 @@ pkg
 src/build
 src/node_modules/
 workers-site/target
+.DS_Store
+.idea
