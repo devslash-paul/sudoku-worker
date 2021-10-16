@@ -6,8 +6,6 @@ import {
   END_PAINTING,
   SEND_COORDINATE
 } from "./actionTypes";
-import { RootState } from "./store";
-import { strictEqual } from "assert";
 
 type Link = {
   start: number, 

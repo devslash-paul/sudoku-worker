@@ -157,9 +157,14 @@ export const checkState = (): ThunkAction<void, RootState, unknown, Action<strin
   var resp = await fetch("/api/count?sudoku=" + str)
   var txt = await resp.text()
   var success = resp.status == 200
+
+  if(!success) {
+    toastr.error("Error", "There was an issue communicating with the server")
+  }
+
   if(txt == "1") {
-    toastr.info("nice", "All good big boi")
+    toastr.info("Congrats", "So far, no issues")
   } else {
-    toastr.error("Problem", "There are " + "" + "solutions" + success)
+    toastr.error("Problem", "Something appears to be wrong")
   }
 }
