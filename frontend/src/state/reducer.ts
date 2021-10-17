@@ -3,29 +3,11 @@ import {
   Actions,
 } from "./cellActions";
 import {
-  RESIZE,
-  RESIZE_START,
-  RESIZE_END,
   CLEAR_HISTORY,
   UNDO,
   REDO
 } from "./actionTypes";
 import { undo } from "./undoredo";
-
-const validStateAction = (state: State, action: Actions) => {
-  switch (state) {
-    case State.NORMAL:
-      // All things can happen when state is normal
-      return true;
-    case State.FROZEN:
-      return (
-        action.type === RESIZE ||
-        action.type === RESIZE_END ||
-        action.type === RESIZE_START
-      );
-  }
-  return true;
-};
 
 export function AppReducer (
   state: AppState = {history: {

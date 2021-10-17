@@ -25,22 +25,10 @@ import NewIcon from "./new.svg";
 import { WholeCellState } from "../../state/cellReducer";
 import { useWindowDimensions } from "../Skeleton";
 
-// const buttonWidth = 33;
-// const cellStyle: CSS.Properties = {
-//   boxSizing: "border-box",
-//   background: "white",
-//   height: buttonWidth + "px",
-//   width: buttonWidth + "px",
-//   border: "1px solid black",
-//   lineHeight: buttonWidth + "px",
-//   fontSize: buttonWidth / 1.2 + "px"
-// };
-
 const boxStyle: CSS.Properties = {
   borderRadius: "0",
-  // background: '#f2f2f2',
+  backgroundColor: 'rgb(187 255 233)',
   boxSizing: "border-box",
-  // flexGrow: 1,
 };
 
 const onImportClicked = (doImport: (e1: string) => void) => {

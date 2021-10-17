@@ -165,6 +165,6 @@ export const checkState = (): ThunkAction<void, RootState, unknown, Action<strin
   if(txt == "1") {
     toastr.info("Congrats", "So far, no issues")
   } else {
-    toastr.error("Problem", "Something appears to be wrong")
+    toastr.error("Problem", `Something appears to be incorrect. There are ${txt} solutions`)
   }
 }

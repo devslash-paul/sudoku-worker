@@ -1,4 +1,5 @@
 html, body {
+  background-color: #dddddd;
   width: 100%;
   height: 100%;
   margin: 0;
@@ -41,6 +42,38 @@ code {
 
 .tile {
   border: 1px solid black;
+}
+
+.tile:nth-child(-n+9) {
+  border-top: 3px solid black;
+}
+
+.tile:nth-child(9n+1) {
+  border-left: 3px solid black;
+}
+
+.tile:nth-child(9n) {
+  border-right: 3px solid black;
+}
+
+.tile:nth-child(n+73) {
+  border-bottom: 3px solid black;
+}
+
+.tile:nth-child(1) {
+  border-radius: 8px 0 0 0;
+}
+
+.tile:nth-child(9) {
+  border-radius: 0 8px 0 0;
+}
+
+.tile:nth-child(73) {
+  border-radius: 0 0 0 8px;
+}
+
+.tile:nth-child(81) {
+  border-radius: 0 0  8px 0;
 }
 
 .tile:nth-child(3n):not(:nth-child(9n)) {

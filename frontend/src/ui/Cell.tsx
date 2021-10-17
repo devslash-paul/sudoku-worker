@@ -3,12 +3,12 @@ import CSS from "csstype";
 
 type CellProps = {
   number: number | null;
-  small: Array<number>;
-  cells: number;
+  positionMarks: Array<number>;
   selected: boolean;
   focused: boolean;
-  highlight: number | null;
-  size: number;
+  highlightNumber: number | null;
+  sideLength: number;
+
   onClick: (meta: boolean) => void;
   onClickText: (number: number) => void;
   onInput: (arg0: number, shift: boolean, meta: boolean) => void;
@@ -25,7 +25,6 @@ const style: CSS.Properties = {
 const highlightText: CSS.Properties = {
   color: "red",
   fontWeight: "bold"
-  // background: "yellow"
 };
 
 export class Cell extends Component<CellProps> {
@@ -33,9 +32,9 @@ export class Cell extends Component<CellProps> {
     return (
       this.props.number !== nextProps.number ||
       this.props.selected !== nextProps.selected ||
-      this.props.small !== nextProps.small ||
-      this.props.size !== nextProps.size ||
-      this.props.highlight !== nextProps.highlight
+      this.props.positionMarks !== nextProps.positionMarks ||
+      this.props.sideLength !== nextProps.sideLength ||
+      this.props.highlightNumber !== nextProps.highlightNumber
     );
   }
 
@@ -46,10 +45,10 @@ export class Cell extends Component<CellProps> {
   };
 
   render() {
-    const ninth = this.props.size;
+    const ninth = this.props.sideLength;
     const extraStyle: CSS.Properties = {
       ...style,
-      flexBasis: "calc(100%/" + this.props.cells + ")",
+      flexBasis: "calc(100%/9)",
       fontSize: `${ninth - 10}px`,
       height: `${ninth}px`,
       lineHeight: `${ninth}px`,
@@ -57,7 +56,7 @@ export class Cell extends Component<CellProps> {
       padding: '2px',
       justifyItems: 'center',
       alignItems: 'center',
-      background: this.props.selected ? "rgba(0,0,255,0.2)" : "white"
+      background: this.props.selected ? "rgba(0,0,255,0.1)" : "white"
     };
 
     const inside = this.props.number
@@ -88,9 +87,9 @@ export class Cell extends Component<CellProps> {
   }
 
   private getSmallCell() {
-    return this.props.small.map(x => {
+    return this.props.positionMarks.map(x => {
       const clickHandler = () => this.props.onClickText(x);
-      const thirdSize = Math.floor(this.props.size / 4);
+      const thirdSize = Math.floor(this.props.sideLength / 4);
       let s: React.CSSProperties = {
         fontSize: `${thirdSize}px`,
         height: `${thirdSize}px`,
@@ -98,7 +97,7 @@ export class Cell extends Component<CellProps> {
         gridRow: `${Math.floor((x-1)/3) + 1}`,
         gridColumn: ((x-1)%3) + 1,
       };
-      if (this.props.highlight === x) {
+      if (this.props.highlightNumber === x) {
         s = {
           ...s,
           ...highlightText
@@ -118,7 +117,7 @@ export class Cell extends Component<CellProps> {
     }
     const clickHandler = () =>
       this.props.number && this.props.onClickText(this.props.number);
-    const highlight = this.props.highlight === this.props.number;
+    const highlight = this.props.highlightNumber === this.props.number;
     const style = highlight ? highlightText : {};
     const ex = {
       ...style,

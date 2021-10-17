@@ -5,16 +5,16 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { cellReducer } from './cellReducer'
 import { settingsReducer } from './settingsReducer'
-import {reducer as toastrReducer} from 'react-redux-toastr'
+import { reducer as toastrReducer } from 'react-redux-toastr'
 import { UIReducer } from "./uiReducer";
 
 const rootReducer = combineReducers({
-    cells: undoable(cellReducer),
-    settings: settingsReducer,
-    main: AppReducer,
-    ui: UIReducer,
-    toastr: toastrReducer,
-  })
+  cells: undoable(cellReducer),
+  settings: settingsReducer,
+  main: AppReducer,
+  ui: UIReducer,
+  toastr: toastrReducer,
+})
 export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk,))//composeWithDevTools(),
